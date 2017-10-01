@@ -1,3 +1,4 @@
+//use states to swirch walking left and right
 // if walkingAnimationSwitch =1 then display this image
 int x = 300;
 int y = 360;
