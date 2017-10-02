@@ -1,4 +1,3 @@
-// if walkingAnimationSwitch =1 then display this image
 int x = 300;
 int y = 360;
 boolean jumping = false;
@@ -15,7 +14,7 @@ void setup() {
   //loads sprites, sets screen size, loads sounds, and sets up animation
   size(1000, 600);
   marioWalkR = 0;
-  marioWalkL = 0;
+  marioWalkL = 3;
 
 
   standingR = loadImage("1.png");
@@ -32,8 +31,7 @@ void draw() {
   // background(backdrop);
   background(255);
   moveSprite();
-  image(marioR[marioWalkR], x, y);
-  image(marioL[marioWalkL],x, y);
+  
   walkingAnimation();
 }
 
@@ -100,13 +98,16 @@ void keyReleased() {
 
 void walkingAnimation() {
   if (state == 1) {
+    image(marioR[marioWalkR], x, y);
     if (frameCount % 5 == 0) { 
       marioWalkR++;
       marioWalkR = marioWalkR % marioR.length;
+
     }
   
   }
   else if (state == 2){
+    image(marioL[marioWalkL],x, y);
     if (frameCount % 5 == 0) { 
       marioWalkL++;
       marioWalkL = marioWalkL % marioL.length;
