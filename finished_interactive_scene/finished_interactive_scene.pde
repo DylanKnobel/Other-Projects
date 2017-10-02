@@ -9,13 +9,14 @@ PImage[] marioR = new PImage[3];
 PImage[] marioL = new PImage[6];
 PImage standingR, standingL;
 int marioWalkR, marioWalkL;
+int state = 0;
 
 void setup() {
   //loads sprites, sets screen size, loads sounds, and sets up animation
   size(1000, 600);
   marioWalkR = 0;
   marioWalkL = 0;
- 
+
 
   standingR = loadImage("1.png");
   standingL = loadImage("4.png");
@@ -31,9 +32,9 @@ void draw() {
   // background(backdrop);
   background(255);
   moveSprite();
-  image(marioR[marioWalkR],x, y);
+  image(marioR[marioWalkR], x, y);
   image(marioL[marioWalkL],x, y);
-
+  walkingAnimation();
 }
 
 
@@ -55,28 +56,24 @@ void moveSprite() {
   }
   if (movingRight) {
     x += 5;
-    if (frameCount % 5 == 0) { 
-      marioWalkR++;
-      marioWalkR = marioWalkR % marioR.length;
-    }
+    state = 1;
+
   } else if (x == 0) {
     x = x + 0;
   }
   if (movingLeft) {
     x -= 5;
-    if (frameCount % 5 == 0) { 
-      marioWalkL++;
-      marioWalkL = marioWalkL % marioL.length;
-      
+    state = 2;
+    
+  } else {
+    image(standingR, x, y);
+    if (x <= 0) {
+      x = 0;
+    }
+    if (x >= 950) {
+      x = 950;
     }
   }
-   else{
-        image(standingR, x,y);
-    if (x <= -50){
-        x = -50;}
-    if (x >= 950){
-        x = 950;}
-   }
 }
 void keyPressed() {
   //this function will be called automatically every time a key on the keyboard is pressed
@@ -84,8 +81,10 @@ void keyPressed() {
     jumping = true;
   } else if (key == 'a') {
     movingLeft = true;
+    state = 1;
   } else if (key == 'd') {
     movingRight = true;
+    state = 2;
   }
 }
 void keyReleased() {
@@ -97,3 +96,25 @@ void keyReleased() {
     movingRight = false ;
   }
 }
+
+
+void walkingAnimation() {
+  if (state == 1) {
+    if (frameCount % 5 == 0) { 
+      marioWalkR++;
+      marioWalkR = marioWalkR % marioR.length;
+    }
+  
+  }
+  else if (state == 2){
+    if (frameCount % 5 == 0) { 
+      marioWalkL++;
+      marioWalkL = marioWalkL % marioL.length;
+    }
+  }
+
+
+
+  
+  
+  }
