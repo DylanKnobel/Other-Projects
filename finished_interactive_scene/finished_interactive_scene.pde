@@ -29,7 +29,8 @@ void setup() {
 
 void draw() {
   // background(backdrop);
-  background(255);
+//backgroundColour();
+background(255);
   moveSprite();
 
   walkingAnimation();
@@ -66,8 +67,8 @@ void moveSprite() {
     if (x <= 0) {
       x = 0;
     }
-    if (x >= 950) {
-      x = 950;
+    if (x >= 915) {
+      x = 915;
     }
   }
 }
@@ -115,3 +116,13 @@ void walkingAnimation() {
     standingL = loadImage("l1.png");
   }
 }
+
+
+//void backgroundColour(){
+//if (mousePressed && (mouseButton == LEFT)){
+//  background(175,0,175);
+//}
+//if (mousePressed && (mouseButton == RIGHT)){
+
+//}
+//}
