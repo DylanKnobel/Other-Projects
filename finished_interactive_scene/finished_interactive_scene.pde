@@ -5,25 +5,25 @@ boolean movingLeft = false;
 boolean movingRight = false ;
 int counter = 0;
 PImage[] marioR = new PImage[3];
-PImage[] marioL = new PImage[6];
+PImage[] marioL = new PImage[3];
 PImage standingR, standingL;
 int marioWalkR, marioWalkL;
-int state = 0;
+int state = 3;
 
 void setup() {
   //loads sprites, sets screen size, loads sounds, and sets up animation
   size(1000, 600);
   marioWalkR = 0;
-  marioWalkL = 3;
+  marioWalkL = 0;
 
 
-  standingR = loadImage("1.png");
-  standingL = loadImage("4.png");
+    standingR = loadImage("r1.png");
+    standingL = loadImage("l1.png");
   for (int iR=0; iR<marioR.length; iR++) {
-    marioR[iR] =loadImage(iR + ".png");
+    marioR[iR] =loadImage("r"+ iR + ".png");
   }
-  for (int iL=3; iL<marioL.length; iL++) {
-    marioL[iL] =loadImage(iL + ".png");
+  for (int iL=0; iL<marioL.length; iL++) {
+    marioL[iL] =loadImage("l" + iL + ".png");
   }
 }
 
@@ -31,7 +31,7 @@ void draw() {
   // background(backdrop);
   background(255);
   moveSprite();
-  
+
   walkingAnimation();
 }
 
@@ -55,14 +55,12 @@ void moveSprite() {
   if (movingRight) {
     x += 5;
     state = 1;
-
   } else if (x == 0) {
     x = x + 0;
   }
   if (movingLeft) {
     x -= 5;
     state = 2;
-    
   } else {
     image(standingR, x, y);
     if (x <= 0) {
@@ -90,8 +88,10 @@ void keyReleased() {
     jumping = false;
   } else if (key == 'a') {
     movingLeft = false;
+    state = 4;
   } else if (key == 'd') {
     movingRight = false ;
+    state = 3;
   }
 }
 
@@ -102,20 +102,16 @@ void walkingAnimation() {
     if (frameCount % 5 == 0) { 
       marioWalkR++;
       marioWalkR = marioWalkR % marioR.length;
-
     }
-  
-  }
-  else if (state == 2){
+  } else if (state == 2) {
     image(marioL[marioWalkL],x, y);
     if (frameCount % 5 == 0) { 
       marioWalkL++;
       marioWalkL = marioWalkL % marioL.length;
     }
+  } else if (state == 3) {
+    standingR = loadImage("r1.png");
+  } else if (state == 4) {
+    standingL = loadImage("l1.png");
   }
-
-
-
-  
-  
-  }
+}
