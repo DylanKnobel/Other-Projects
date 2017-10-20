@@ -9,6 +9,8 @@ PImage[] marioL = new PImage[3];
 PImage standingR, standingL;
 int marioWalkR, marioWalkL;
 int state = 3;
+int backgroundState = 1;
+
 
 void setup() {
   //loads sprites, sets screen size, loads sounds, and sets up animation
@@ -17,8 +19,8 @@ void setup() {
   marioWalkL = 0;
 
 
-    standingR = loadImage("r1.png");
-    standingL = loadImage("l1.png");
+  standingR = loadImage("r1.png");
+  standingL = loadImage("l1.png");
   for (int iR=0; iR<marioR.length; iR++) {
     marioR[iR] =loadImage("r"+ iR + ".png");
   }
@@ -28,12 +30,10 @@ void setup() {
 }
 
 void draw() {
-  // background(backdrop);
-//backgroundColour();
-background(255);
+  backgroundColour();
   moveSprite();
-
   walkingAnimation();
+
 }
 
 
@@ -83,6 +83,12 @@ void keyPressed() {
     movingRight = true;
     state = 2;
   }
+  if (keyCode == LEFT){
+    background(0);
+  }
+  if (keyCode == RIGHT){
+    background(255);
+  }
 }
 void keyReleased() {
   if (key == ' ') {
@@ -105,7 +111,7 @@ void walkingAnimation() {
       marioWalkR = marioWalkR % marioR.length;
     }
   } else if (state == 2) {
-    image(marioL[marioWalkL],x, y);
+    image(marioL[marioWalkL], x, y);
     if (frameCount % 5 == 0) { 
       marioWalkL++;
       marioWalkL = marioWalkL % marioL.length;
@@ -118,11 +124,17 @@ void walkingAnimation() {
 }
 
 
-//void backgroundColour(){
-//if (mousePressed && (mouseButton == LEFT)){
-//  background(175,0,175);
-//}
-//if (mousePressed && (mouseButton == RIGHT)){
-
-//}
-//}
+void backgroundColour() {
+  if (mousePressed && (mouseButton == LEFT)) {
+    backgroundState = 1;
+  }
+  else if (mousePressed && (mouseButton == RIGHT)) {
+    backgroundState = 2;
+  }
+  if (backgroundState == 1){
+    background(255);
+  }
+  else if (backgroundState == 2){
+   background(0); 
+  }
+}
